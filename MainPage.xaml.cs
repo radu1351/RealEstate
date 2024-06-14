@@ -4,30 +4,34 @@ namespace Imobiliare
 {
     public partial class MainPage : ContentPage
     {
-        public ObservableCollection<RealEstate> RealEstateItems { get; set; }
+        public ObservableCollection<House> RealEstateItems { get; set; }
 
         public MainPage()
         {
             InitializeComponent();
-            RealEstateItems = new ObservableCollection<RealEstate>
+            RealEstateItems = new ObservableCollection<House>
             {
-                new RealEstate { ImageUrl = "house1.jpg", Name = "Casa", Price = "$200,000" },
-                new RealEstate { ImageUrl = "house1.jpg", Name = "Casa", Price = "$250,000" },
-                // Add more real estate items here
+                new House { ImageUrl = "house1.jpg", Name = "Casa 1", Price = 200000, Adress="Soseaua Iancului", Description = "Beautiful house with 3 bedrooms and 2 bathrooms." },
+                new House { ImageUrl = "house1.jpg", Name = "Casa 2", Price = 250000, Adress="Bldv. Iuliu Maniu 59", Description = "Modern house with 4 bedrooms and a swimming pool." },
             };
             BindingContext = this;
         }
 
-        private void OnAddRealEstateClicked(object sender, EventArgs e)
+        private async void OnAddHouseClicked(object sender, EventArgs e)
         {
-            // Add logic to add a new real estate item
-            RealEstateItems.Add(new RealEstate { ImageUrl = "house2.jpeg", Name = "Casa", Price = "$300,000" });
+            var addHousePage = new AddHousePage(AddNewHouse);
+            await Navigation.PushAsync(addHousePage);
+        }
+
+        private void AddNewHouse(House newHouse)
+        {
+            RealEstateItems.Add(newHouse);
         }
 
         private async void OnItemTapped(object sender, EventArgs e)
         {
             var frame = sender as Frame;
-            var realEstate = frame.BindingContext as RealEstate;
+            var realEstate = frame.BindingContext as House;
             if (realEstate != null)
             {
                 await Navigation.PushAsync(new DetailsPage(realEstate));
@@ -35,12 +39,13 @@ namespace Imobiliare
         }
     }
 
-   
-    public class RealEstate
+    public class House
     {
         public string ImageUrl { get; set; }
         public string Name { get; set; }
-        public string Price { get; set; }
+        public int Price { get; set; }
+        public string Adress { get; set; }
+        public string Description { get; set; }
     }
 
 }

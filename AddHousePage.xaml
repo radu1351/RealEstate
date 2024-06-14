@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Imobiliare.AddHousePage"
+             Title="AddHouse">
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="10" Spacing="20">
+                <!-- Add Image Section -->
+                <Frame Padding="10" Margin="5" BorderColor="LightGray">
+                    <StackLayout>
+                        <Image x:Name="HouseImage" Source="add_image.png" Aspect="AspectFit" HeightRequest="200" VerticalOptions="CenterAndExpand">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnImageTapped" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </StackLayout>
+                </Frame>
+
+                <!-- Entry fields for house attributes -->
+                <Label Text="Name" FontSize="Medium" />
+                <Entry Placeholder="Enter name" x:Name="NameEntry" />
+
+                <Label Text="Price" FontSize="Medium" />
+                <Entry Placeholder="Enter price" Keyboard="Telephone" x:Name="PriceEntry" />
+
+                <Label Text="Address" FontSize="Medium" />
+                <Editor Placeholder="Enter address" AutoSize="TextChanges" x:Name="AddressEditor" />
+                
+                <Label Text="Description" FontSize="Medium" />
+                <Editor Placeholder="Enter description" AutoSize="TextChanges" x:Name="DescriptionEditor" />
+
+                <!-- Button to add new house -->
+                <Button Text="Add House" Clicked="OnAddHouseClicked" HorizontalOptions="Center" VerticalOptions="End" Margin="10"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+
+</ContentPage>
