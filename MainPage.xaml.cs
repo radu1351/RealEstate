@@ -9,15 +9,24 @@ namespace Imobiliare
         public MainPage()
         {
             InitializeComponent();
-            RealEstateItems = new ObservableCollection<House>
-            {
-                new House { ImageUrl = "house1.jpg", Name = "Casa 1", Price = 200000, Adress="Soseaua Iancului", Description = "Beautiful house with 3 bedrooms and 2 bathrooms." },
-                new House { ImageUrl = "house1.jpg", Name = "Casa 2", Price = 250000, Adress="Bldv. Iuliu Maniu 59", Description = "Modern house with 4 bedrooms and a swimming pool." },
-            };
+            RealEstateItems = new ObservableCollection<House>();
             BindingContext = this;
         }
 
-        private async void OnAddHouseClicked(object sender, EventArgs e)
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            // Load houses from database
+            var houses = await App.Database.GetHousesAsync();
+            RealEstateItems.Clear();
+            foreach (var house in houses)
+            {
+                RealEstateItems.Add(house);
+            }
+    }
+
+    private async void OnAddHouseClicked(object sender, EventArgs e)
         {
             var addHousePage = new AddHousePage(AddNewHouse);
             await Navigation.PushAsync(addHousePage);
@@ -38,14 +47,4 @@ namespace Imobiliare
             }
         }
     }
-
-    public class House
-    {
-        public string ImageUrl { get; set; }
-        public string Name { get; set; }
-        public int Price { get; set; }
-        public string Adress { get; set; }
-        public string Description { get; set; }
-    }
-
 }

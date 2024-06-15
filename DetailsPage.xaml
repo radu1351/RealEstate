@@ -3,28 +3,38 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Imobiliare.DetailsPage"
              Title="DetailsPage">
-
-
     <ContentPage.Content>
-        <Grid Padding="10">
+        <Grid Padding="10" RowSpacing="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="3*" />
             </Grid.ColumnDefinitions>
 
             <!-- Image on the left -->
-            <Image Grid.Column="0" Source="{Binding ImageUrl}" Aspect="AspectFit" HeightRequest="300" VerticalOptions="StartAndExpand" />
+            <Image Grid.Row="0" Grid.Column="0" Source="{Binding ImageUrl}" Aspect="AspectFill" 
+                   HeightRequest="{OnIdiom Phone=200, Tablet=300, Desktop=300}" 
+                   WidthRequest="{OnIdiom Phone=200, Tablet=500, Desktop=500}" 
+                   VerticalOptions="StartAndExpand" />
 
             <!-- Details on the right -->
-            <StackLayout Grid.Column="1" Padding="10">
+            <StackLayout Grid.Row="0" Grid.Column="1" Padding="10">
                 <Label Text="{Binding Name}" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Start" />
                 <Label Text="{Binding Price, StringFormat='€{0:F2}'}" FontSize="Medium" HorizontalOptions="Start" />
-                <Label Text="{Binding Adress}" FontSize="Small" HorizontalOptions="Start" />
+                <Label Text="{Binding Address}" FontSize="Small" HorizontalOptions="Start" />
                 <Label Text="{Binding Description}" FontSize="Small" HorizontalOptions="Start" />
-                <Image x:Name="GoogleMapImage" Aspect="Center" HeightRequest="200" VerticalOptions="StartAndExpand" />
             </StackLayout>
+
+            <!-- Google map image -->
+            <Image Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1" x:Name="GoogleMapImage" Aspect="AspectFill" 
+                   HeightRequest="{OnIdiom Phone=200, Tablet=300, Desktop=300}" 
+                   WidthRequest="{OnIdiom Phone=200, Tablet=500, Desktop=500}" 
+                   VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" />
         </Grid>
     </ContentPage.Content>
-
-
 </ContentPage>

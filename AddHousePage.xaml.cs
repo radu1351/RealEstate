@@ -44,22 +44,25 @@ namespace Imobiliare
             
             var name = nameEntry.Text;
             var price = int.Parse(priceEntry.Text);
-            var adress = addressEditor.Text;
+            var address = addressEditor.Text;
             var description = descriptionEditor.Text;
 
             // Validate and add the new house
-            if (!string.IsNullOrWhiteSpace(name) && price != 0 && !string.IsNullOrWhiteSpace(description) && !string.IsNullOrWhiteSpace(_imagePath) && !string.IsNullOrWhiteSpace(adress))
+            if (!string.IsNullOrWhiteSpace(name) && price != 0 && !string.IsNullOrWhiteSpace(description) && !string.IsNullOrWhiteSpace(_imagePath) && !string.IsNullOrWhiteSpace(address))
             {
                 var newHouse = new House
                 {
                     Name = name,
                     Price = price,
                     Description = description,
+                    Address = address,
                     ImageUrl = _imagePath
                 };
 
                 // Call the callback to add the new house
                 _addHouseCallback?.Invoke(newHouse);
+
+                await App.Database.SaveHouseAsync(newHouse);
 
                 // Navigate back to the main page
                 await Navigation.PopAsync();

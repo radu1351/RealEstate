@@ -15,7 +15,7 @@ public partial class DetailsPage : ContentPage
     {
         InitializeComponent();
         BindingContext = house;
-        ShowGoogleMap(house.Adress);
+        ShowGoogleMap(house.Address);
     }
 
     private async void ShowGoogleMap(string address)
@@ -26,7 +26,7 @@ public partial class DetailsPage : ContentPage
             string mapUrl = $"https://maps.googleapis.com/maps/api/staticmap?" +
                             $"center={Uri.EscapeDataString(address)}" +
                             $"&size=900x900" +
-                            $"&markers=color:red%7Clabel:C%7C{Uri.EscapeDataString(address)}" +
+                            $"&markers=color:red%7Clabel:%7C{Uri.EscapeDataString(address)}" +
                             $"&key={GoogleMapsApiKey}";
 
             // Folosește HttpClient pentru a descărca imaginea de la URL
@@ -43,7 +43,7 @@ public partial class DetailsPage : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlert("Error", "Error Loading Google Map.", "OK");
+            Console.WriteLine($"Error loading Google Map. {ex}");
         }
     }
 }
