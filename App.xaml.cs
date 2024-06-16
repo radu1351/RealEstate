@@ -5,7 +5,6 @@ namespace Imobiliare
     public partial class App : Application
     {
         private static DatabaseService databaseService;
-        private static readonly string DbPath = Path.Combine(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.Parent.Parent.FullName, "houses.db3");
 
         public App()
         {
@@ -19,14 +18,12 @@ namespace Imobiliare
             {
                 if (databaseService == null)
                 {
-                    try
-                    {
-                        databaseService = new DatabaseService(DbPath);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
+                    string dbPath;
+                    if(DeviceInfo.Current.Platform == DevicePlatform.Android)
+                        dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "houses.db3");
+                    else 
+                        dbPath = Path.Combine(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.Parent.Parent.FullName, "houses.db3");
+                    databaseService = new DatabaseService(dbPath);
                 }
                 return databaseService;
             }

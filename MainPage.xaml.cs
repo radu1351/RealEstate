@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Imobiliare
 {
@@ -26,7 +27,7 @@ namespace Imobiliare
             }
         }
 
-    private async void OnAddHouseClicked(object sender, EventArgs e)
+        private async void OnAddHouseClicked(object sender, EventArgs e)
         {
             var addHousePage = new AddHousePage(AddNewHouse);
             await Navigation.PushAsync(addHousePage);
@@ -45,6 +46,28 @@ namespace Imobiliare
             {
                 await Navigation.PushAsync(new DetailsPage(realEstate));
             }
+        }
+
+        private void OnSortOrderChanged(object sender, EventArgs e)
+        {
+            var picker = sender as Picker;
+            var selectedIndex = picker.SelectedIndex;
+            if (selectedIndex == -1) return;
+
+            switch (selectedIndex)
+            {
+                case 0:
+                    // Sort ascending by price
+                    RealEstateItems = new ObservableCollection<House>(RealEstateItems.OrderBy(h => h.Price));
+                    break;
+                case 1:
+                    // Sort descending by price
+                    RealEstateItems = new ObservableCollection<House>(RealEstateItems.OrderByDescending(h => h.Price));
+                    break;
+            }
+
+            // Refresh the binding
+            OnPropertyChanged(nameof(RealEstateItems));
         }
     }
 }

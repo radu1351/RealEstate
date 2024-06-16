@@ -6,14 +6,25 @@
     <ContentPage.Content>
         <Grid Padding="10">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
+            <!-- Picker for sorting options -->
+            <Picker Grid.Row="0" Grid.Column="0" Title="Sortare" TitleColor="Gray" SelectedIndexChanged="OnSortOrderChanged" HorizontalOptions="Start" Margin="5,0,0,0">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Preț Ascendent</x:String>
+                        <x:String>Preț Descendent</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
             <!-- CollectionView for the real estate items -->
-            <CollectionView Grid.Row="0" ItemsSource="{Binding RealEstateItems}">
+            <CollectionView Grid.Row="1" ItemsSource="{Binding RealEstateItems}">
                 <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="2" />
+                    <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="5" HorizontalItemSpacing="5" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -22,7 +33,7 @@
                                 <TapGestureRecognizer Tapped="OnItemTapped" />
                             </Frame.GestureRecognizers>
                             <StackLayout>
-                                <Image Source="{Binding ImageUrl}" Aspect="AspectFit" HeightRequest="500" VerticalOptions="Center"/>
+                                <Image Source="{Binding ImageUrl}" Aspect="AspectFit" HeightRequest="430" VerticalOptions="Center"/>
                                 <Label Text="{Binding Name}" FontSize="Medium" HorizontalOptions="Center" />
                                 <Label Text="{Binding Price, StringFormat='€{0:F2}'}" FontSize="Small" HorizontalOptions="Center" />
                             </StackLayout>
@@ -32,7 +43,7 @@
             </CollectionView>
 
             <!-- Button to add new real estate -->
-            <Button Grid.Row="1" Text="Adaugă imobil" Clicked="OnAddHouseClicked" HorizontalOptions="Center" VerticalOptions="End" Margin="10"/>
+            <Button Grid.Row="2" Text="Adaugă imobil" Clicked="OnAddHouseClicked" HorizontalOptions="Center" VerticalOptions="End" Margin="10"/>
         </Grid>
     </ContentPage.Content>
 

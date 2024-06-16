@@ -39,12 +39,12 @@ namespace Imobiliare
             // Retrieve entered data using FindByName
             var nameEntry = (Entry)FindByName("NameEntry");
             var priceEntry = (Entry)FindByName("PriceEntry");
-            var addressEditor = (Editor)FindByName("AddressEditor");
+            var addressEntry = (Entry)FindByName("AddressEntry");
             var descriptionEditor = (Editor)FindByName("DescriptionEditor");
             
             var name = nameEntry.Text;
             var price = int.Parse(priceEntry.Text);
-            var address = addressEditor.Text;
+            var address = addressEntry.Text;
             var description = descriptionEditor.Text;
 
             // Validate and add the new house
