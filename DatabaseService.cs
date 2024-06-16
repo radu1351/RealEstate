@@ -14,7 +14,8 @@ namespace Imobiliare
             _database = new SQLiteAsyncConnection(dbPath);
             try
             {
-                _database.CreateTableAsync<House>().Wait();  // This ensures the table is created
+                _database.CreateTableAsync<House>().Wait();
+                _database.CreateTableAsync<User>().Wait(); 
             }
             catch (Exception ex)
             {
@@ -60,5 +61,47 @@ namespace Imobiliare
                 return 0;
             }
         }
+
+        public async Task<int> SaveUserAsync(User user)
+        {
+            try
+            {
+                return await _database.InsertAsync(user);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving user: {ex}");
+                return 0;
+            }
+        }
+
+        public async Task<int> deleteUserAsync(User user)
+        {
+            try
+            {
+                return await _database.DeleteAsync(user);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting user: {ex}");
+                return 0;
+            }
+        }
+
+        public async Task<User> GetUserByEmailAndPasswordAsync(string email, string password)
+        {
+            try
+            {
+                return await _database.Table<User>()
+                                      .Where(u => u.Email == email && u.Password == password)
+                                      .FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return null;
+            }
+        }
+
     }
 }

@@ -1,33 +1,35 @@
 ﻿using SQLite;
-namespace Imobiliare;
-
-public partial class App : Application
+namespace Imobiliare
 {
-    private static DatabaseService _database;
-    private static readonly string DbPath = Path.Combine(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.Parent.Parent.FullName, "houses.db3");
 
-    public App()
+    public partial class App : Application
     {
-        InitializeComponent();
-        MainPage = new NavigationPage(new MainPage());
-    }
+        private static DatabaseService databaseService;
+        private static readonly string DbPath = Path.Combine(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.Parent.Parent.FullName, "houses.db3");
 
-    public static DatabaseService Database
-    {
-        get
+        public App()
         {
-            if (_database == null)
+            InitializeComponent();
+            MainPage = new NavigationPage(new MainPage());
+        }
+
+        public static DatabaseService Database
+        {
+            get
             {
-                try
+                if (databaseService == null)
                 {
-                    _database = new DatabaseService(DbPath);
+                    try
+                    {
+                        databaseService = new DatabaseService(DbPath);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                return databaseService;
             }
-            return _database;
         }
     }
 }

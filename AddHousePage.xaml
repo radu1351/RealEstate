@@ -2,39 +2,43 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Imobiliare.AddHousePage"
-             Title="AddHouse">
+             BackgroundImageSource="blurred_house.jpg">
 
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout Padding="10" Spacing="20">
-                <!-- Add Image Section -->
-                <Frame Padding="10" Margin="5" BorderColor="LightGray">
+        <ScrollView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <Frame Padding="10" BorderColor="LightGray" HorizontalOptions="Center">
+                <StackLayout Spacing="20">
+                    <Image x:Name="HouseImage" Source="add_image.png" Aspect="AspectFit" HeightRequest="200" VerticalOptions="CenterAndExpand">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnImageTapped" />
+                        </Image.GestureRecognizers>
+                    </Image>
+
                     <StackLayout>
-                        <Image x:Name="HouseImage" Source="add_image.png" Aspect="AspectFit" HeightRequest="200" VerticalOptions="CenterAndExpand">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnImageTapped" />
-                            </Image.GestureRecognizers>
-                        </Image>
+                        <Label Text="Name" FontSize="Medium" />
+                        <Entry Placeholder="Enter name" x:Name="NameEntry" WidthRequest="600"/>
                     </StackLayout>
-                </Frame>
 
-                <!-- Entry fields for house attributes -->
-                <Label Text="Name" FontSize="Medium" />
-                <Entry Placeholder="Enter name" x:Name="NameEntry" />
+                    <StackLayout>
+                        <Label Text="Price" FontSize="Medium" />
+                        <Entry Placeholder="Enter price" Keyboard="Numeric" x:Name="PriceEntry" WidthRequest="600" />
+                    </StackLayout>
 
-                <Label Text="Price" FontSize="Medium" />
-                <Entry Placeholder="Enter price" Keyboard="Telephone" x:Name="PriceEntry" />
+                    <StackLayout>
+                        <Label Text="Address" FontSize="Medium" />
+                        <Entry Placeholder="Enter address" x:Name="AddressEntry" WidthRequest="600" />
+                    </StackLayout>
 
-                <Label Text="Address" FontSize="Medium" />
-                <Editor Placeholder="Enter address" AutoSize="TextChanges" x:Name="AddressEditor" />
-                
-                <Label Text="Description" FontSize="Medium" />
-                <Editor Placeholder="Enter description" AutoSize="TextChanges" x:Name="DescriptionEditor" />
+                    <StackLayout>
+                        <Label Text="Description" FontSize="Medium" />
+                        <Editor Placeholder="Enter description" x:Name="DescriptionEditor" HeightRequest="150" WidthRequest="600" />
+                    </StackLayout>
 
-                <!-- Button to add new house -->
-                <Button Text="Add House" Clicked="OnAddHouseClicked" HorizontalOptions="Center" VerticalOptions="End" Margin="10"/>
-            </StackLayout>
+                    <StackLayout>
+                        <Button Text="Add House" Clicked="OnAddHouseClicked" HorizontalOptions="Center" VerticalOptions="End" />
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
         </ScrollView>
     </ContentPage.Content>
-
 </ContentPage>

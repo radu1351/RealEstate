@@ -24,7 +24,7 @@ namespace Imobiliare
             {
                 RealEstateItems.Add(house);
             }
-    }
+        }
 
     private async void OnAddHouseClicked(object sender, EventArgs e)
         {
