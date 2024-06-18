@@ -5,12 +5,21 @@ namespace Imobiliare
 {
     public partial class MainPage : ContentPage
     {
-        public ObservableCollection<House> RealEstateItems { get; set; }
+        public ObservableCollection<House> realEstateItems { get; set; }
+        public User currentUser { get; set; }
 
         public MainPage()
         {
             InitializeComponent();
-            RealEstateItems = new ObservableCollection<House>();
+            realEstateItems = new ObservableCollection<House>();
+            BindingContext = this;
+        }
+
+        public MainPage(User user)
+        {
+            InitializeComponent();
+            currentUser = user;
+            realEstateItems = new ObservableCollection<House>();
             BindingContext = this;
         }
 
@@ -20,10 +29,10 @@ namespace Imobiliare
 
             // Load houses from database
             var houses = await App.Database.GetHousesAsync();
-            RealEstateItems.Clear();
+            realEstateItems.Clear();
             foreach (var house in houses)
             {
-                RealEstateItems.Add(house);
+                realEstateItems.Add(house);
             }
         }
 
@@ -35,7 +44,7 @@ namespace Imobiliare
 
         private void AddNewHouse(House newHouse)
         {
-            RealEstateItems.Add(newHouse);
+            realEstateItems.Add(newHouse);
         }
 
         private async void OnItemTapped(object sender, EventArgs e)
@@ -58,16 +67,16 @@ namespace Imobiliare
             {
                 case 0:
                     // Sort ascending by price
-                    RealEstateItems = new ObservableCollection<House>(RealEstateItems.OrderBy(h => h.Price));
+                    realEstateItems = new ObservableCollection<House>(realEstateItems.OrderBy(h => h.Price));
                     break;
                 case 1:
                     // Sort descending by price
-                    RealEstateItems = new ObservableCollection<House>(RealEstateItems.OrderByDescending(h => h.Price));
+                    realEstateItems = new ObservableCollection<House>(realEstateItems.OrderByDescending(h => h.Price));
                     break;
             }
 
             // Refresh the binding
-            OnPropertyChanged(nameof(RealEstateItems));
+            OnPropertyChanged(nameof(realEstateItems));
         }
     }
 }

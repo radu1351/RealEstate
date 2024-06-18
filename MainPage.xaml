@@ -20,9 +20,13 @@
                     </x:Array>
                 </Picker.ItemsSource>
             </Picker>
-
+            <StackLayout Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,10,0">
+                <Image Source="user.png" HeightRequest="50" WidthRequest="50" Margin="0,0,-5,0"/>
+                <Label Text="{Binding currentUser.FullName}" FontSize="Small" VerticalOptions="Center"/>
+            </StackLayout>
+            
             <!-- CollectionView for the real estate items -->
-            <CollectionView Grid.Row="1" ItemsSource="{Binding RealEstateItems}">
+            <CollectionView Grid.Row="1" ItemsSource="{Binding realEstateItems}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="2" VerticalItemSpacing="5" HorizontalItemSpacing="5" />
                 </CollectionView.ItemsLayout>
@@ -35,7 +39,7 @@
                             <StackLayout>
                                 <Image Source="{Binding ImageUrl}" Aspect="AspectFit" HeightRequest="430" VerticalOptions="Center"/>
                                 <Label Text="{Binding Name}" FontSize="Medium" HorizontalOptions="Center" />
-                                <Label Text="{Binding Price, StringFormat='€{0:F2}'}" FontSize="Small" HorizontalOptions="Center" />
+                                <Label Text="{Binding Price, StringFormat='{0:€0,00}'}" FontSize="Small" HorizontalOptions="Center" />
                             </StackLayout>
                         </Frame>
                     </DataTemplate>

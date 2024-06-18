@@ -19,7 +19,7 @@ namespace Imobiliare
 
             if (user != null)
             {
-                await Navigation.PushAsync(new MainPage());
+                await Navigation.PushAsync(new MainPage(user));
             }
             else
             {
